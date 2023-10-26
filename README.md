@@ -6,7 +6,12 @@
 
 ## Requirements
 
-Trained with Python 3.7, adapter-transformers 4.16.2, Torch 1.9.0, tqdm 4.62.3. 
+Trained with:
+- Python 3.7
+- pytorch 1.11.0
+- transformers 4.16.2
+- adapter-transformers 2.3.0
+- sentence-transformers 2.2.1 
 
 
 ## Data Format
