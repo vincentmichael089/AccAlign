@@ -460,6 +460,7 @@ def evaluate(args, model, tokenizer, global_step, prefix="") -> Dict:
 
 def main():
     parser = argparse.ArgumentParser()
+    _continue_training=False
 
     # Required parameters
     parser.add_argument(
@@ -680,11 +681,7 @@ def main():
             and args.do_train
             and not args.overwrite_output_dir
     ):
-        raise ValueError(
-            "Output directory ({}) already exists and is not empty. Use --overwrite_output_dir to overcome.".format(
-                args.output_dir_adapter
-            )
-        )
+        _continue_training=True
 
     # Setup CUDA, GPU & distributed training
     if args.local_rank == -1 or args.no_cuda:
@@ -744,9 +741,14 @@ def main():
 
     if args.do_train:
 
-        config_align = HoulsbyConfig(reduction_factor=6)
-
-        labse_model.add_adapter("alignment_adapter", config=config_align)
+        if not _continue_training: 
+            config_align = HoulsbyConfig(reduction_factor=6)
+            labse_model.add_adapter("alignment_adapter", config=config_align)
+        else:
+            # sorted_checkpoints = _sorted_checkpoints(args)
+            # saved_adapter = sorted_checkpoints[-1]
+            # labse_model.load_adapter("alignment_adapter", saved_adapter)
+            labse_model.load_adapter(args.adapter_path)
         labse_model.train_adapter("alignment_adapter")
         labse_model.set_active_adapters("alignment_adapter")
 

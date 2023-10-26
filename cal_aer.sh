@@ -4,10 +4,10 @@
 
 
 export WORKLOC=/home/acc_align
-datadir=$WORKLOC/data/deen
+#datadir=$WORKLOC/data/deen
 
 ref_align=$datadir/deen.talp
-reftype='--oneRef'
+#reftype='--oneRef'
 
 
 

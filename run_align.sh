@@ -1,18 +1,18 @@
 #!/bin/sh
 
 
-WorkLOC=/home/acc_align #yours
+WorkLOC=/home/vincent/AccAlign #yours
 
-SRC=$WorkLOC/xxx/roen/roen.src
-TGT=$WorkLOC/xxx/roen/roen.tgt
+SRC=/home/vincent/alignment_datasets/kftt-alignments/data/japanese-test.txt
+TGT=/home/vincent/alignment_datasets/kftt-alignments/data/english-test.txt
 
-OUTPUT_DIR=$WorkLOC/xxx/infer_output
-ADAPTER=$WorkLOC/xxx/adapter
-Model=$WorkLOC/xxx/LaBSE
+OUTPUT_DIR=$WorkLOC/infer_output
+ADAPTER=$WorkLOC/adapter_output/try/checkpoint-1200
+Model=/home/vincent/.cache/torch/sentence_transformers/sentence-transformers_LaBSE
 
 
-
-python $WorkLOC/github_open/aligner/train_alignment_adapter.py \
+# for replicating non-finetune, remove the --adapter_path
+python $WorkLOC/train_alignment_adapter.py \
     --infer_path $OUTPUT_DIR \
     --adapter_path $ADAPTER \
     --model_name_or_path $Model \
@@ -24,7 +24,6 @@ python $WorkLOC/github_open/aligner/train_alignment_adapter.py \
     --align_layer 6 \
     --softmax_threshold 0.1 \
     --do_test \
-
 
 exit
 
